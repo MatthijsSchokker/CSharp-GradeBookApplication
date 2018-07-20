@@ -44,12 +44,12 @@ namespace GradeBook.UserInterfaces
             if (name == "standard")
                 gradeBook = new StandardGradeBook(name);
 
-            if (name == "ranked")
+            else if (name == "ranked")
                 gradeBook = new RankedGradeBook(name);
 
             else
             {
-                throw new SystemException(" is not a supported type of gradebook, please try again");
+                throw new IndexOutOfRangeException(" is not a supported type of gradebook, please try again");
             }
 
             Console.WriteLine("Created gradebook {0}.", name);
