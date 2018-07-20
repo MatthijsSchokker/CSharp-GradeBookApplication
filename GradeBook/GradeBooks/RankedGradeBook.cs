@@ -11,5 +11,36 @@ namespace GradeBook.GradeBooks
         {
             Type = GradeBookType.Ranked;
         }
+
+        public override char GetLetterGrade(double averageGrade)
+        {
+            if (Students.Count < 5)
+            {
+                throw new InvalidOperationException("Ranked-grading requires a minimum of 5 students to work.");
+            }
+
+            List<double> rankedAverageGrade = new List<double>();
+
+            foreach (var student in Students)
+            {
+                rankedAverageGrade.Add(student.AverageGrade);
+            }
+
+            rankedAverageGrade.Sort();
+
+            var threshold = (int)Math.Ceiling(Students.Count * 0.2);
+
+            if (rankedAverageGrade[threshold * 4] <= averageGrade)
+                return 'A';
+            else if (rankedAverageGrade[threshold * 3] <= averageGrade)
+                return 'B';
+            else if (rankedAverageGrade[threshold * 2] <= averageGrade)
+                return 'C';
+            else if (rankedAverageGrade[threshold] <= averageGrade)
+                return 'D';
+            else
+                return 'F';
+        }
+
     }
 }
